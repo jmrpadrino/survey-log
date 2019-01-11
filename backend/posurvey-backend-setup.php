@@ -30,15 +30,18 @@ function po_custom_scripts(){
 }
 
 
-function schnell_columns_head($defaults){
+function op_columns_head($defaults){
 	if ( $_GET['post_type'] == 'posurvey' ){
 		$defaults['stageorder'] = _x('Stage Order','po_survey');
 		$defaults['stageitems'] = _x('Stage Items','po_survey');
 	}
+    if ( $_GET['post_type'] == 'pos_apply' ){
+		$defaults['applicationstatus'] = _x('Status','po_survey');
+	}
 	return $defaults;
 }
 
-function schnell_columns_content($column_name, $post_ID){
+function op_columns_content($column_name, $post_ID){
 
 
 	if ( $column_name == 'stageorder'){
@@ -50,10 +53,22 @@ function schnell_columns_content($column_name, $post_ID){
 		echo count($stage_metas) . ' items';
 	}
 
+    if ( $column_name == 'applicationstatus'){
+        $statues = array(
+            _x('On Hold', 'op_survey'),
+            _x('In Progress', 'op_survey'),
+            _x('Ready', 'op_survey'),
+            _x('Pending', 'op_survey'),
+            _x('Closed', 'op_survey')
+        );
+		$stage_metas = get_post_meta($post_ID, '_po_survey_status', true);
+		echo '<span class="status-tag status-'.$stage_metas.'">'.$statues[$stage_metas].'</span>';
+	}
+
 }
 
-add_filter('manage_posts_columns', 'schnell_columns_head');
-add_action('manage_posts_custom_column', 'schnell_columns_content', 10, 2);
+add_filter('manage_posts_columns', 'op_columns_head');
+add_action('manage_posts_custom_column', 'op_columns_content', 10, 2);
 
 
 
@@ -62,6 +77,9 @@ function survey_stage_ordering(){
 		'taxonomy' => 'po-survey-group',
 		'hide_empty' => false,
 	) );
+
+    if($po_terms)
+    {
 ?>
 <div class="wrap">
 	<h1><?php _e( 'Survey stage reordering', 'po_survey' ) ?></h1>
@@ -117,6 +135,7 @@ function survey_stage_ordering(){
 	<?php } ?>
 </div>
 <?php
+    }
 }
 function po_survey_admin_menu(){
 	$args = array(

@@ -103,7 +103,8 @@ function po_show_survey($atts){
 				$string .= '</div>'; // po-slide
 				$counter++;
 			}
-			
+
+            $appearance = ($counter == 1) ? 'block' : 'none';
 			$string .= '<div class="po-slide" style="display: '. $appearance .';" data-slide="'.$counter++.'" data-nextslide="last">';
 			
 			$string .= '<div id="po_user_data" class="last-slide-container">';

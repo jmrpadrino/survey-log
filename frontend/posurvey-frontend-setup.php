@@ -28,6 +28,12 @@ function po_add_quote(){
 	parse_str($_POST['values'], $survey_values);
 	parse_str($_POST['userData'], $survey_user_data);
 
+    $meta_info = array(
+        'survey' => $survey,
+        'values' => $survey_values,
+        'userData' => $survey_user_data
+    );
+
 	//mostrar($survey);
 	//mostrar($survey_values);
 	//mostrar($survey_user_data);
@@ -66,6 +72,12 @@ function po_add_quote(){
 		'post_title' => '@'. date('Y-m-d h:i:s') . ' SG ' . $survey_data->name,
 		'post_status' => 'publish',
 		'post_type' => 'pos_apply',
+
+        'meta_input' => array(
+            '_po_survey_meta' => $meta_info,
+            '_po_survey_log' => $html_content,
+            '_po_survey_status' => 0
+        )
 		/*
 		'meta_input' => array(
 			$prefix . 'quote_ID' => $pedidoTemporal['quote'],
@@ -128,12 +140,7 @@ function goquitongSaveStatus( $post_id ){
 	update_post_meta($post_id, 'quote_status',  sanitize_text_field($_POST['quote_status']));
 
 }
-add_action('save_post', 'goquitongSaveStatus');
-
-function gquote_register_meta_boxes() {
-	add_meta_box( 'goquitong-quote-data', '<span class="dashicons dashicons-cart"></span> ' . __( 'Quote Info', 'textdomain' ), 'gquote_register_meta_boxes_callback', 'gquote' );
-}
-add_action( 'add_meta_boxes', 'gquote_register_meta_boxes' );
+//add_action('save_post', 'goquitongSaveStatus');
 
 function mostrar($arr){
 	echo '<pre>';

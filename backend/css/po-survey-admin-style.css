@@ -1,74 +1,78 @@
 /* PO Survey Backend Styles */
 
 .ui-state-highlight{
-	height: 2.5em; 
-	line-height: 1.2em;
-	background: lightgray;
+    height: 2.5em;
+    line-height: 1.2em;
+    background: lightgray;
 }
-
+#po-make-clonable{
+    margin: 0;
+}
 #po-make-clonable li.input-placeholder{
-	border-bottom: 1px solid lightgray;
-	padding: 18px 0;
-	position: relative;
+    border-bottom: 1px solid lightgray;
+    padding: 18px 0;
+    position: relative;
 }
 
 #po-make-clonable li.input-placeholder:hover{
-	background: #eaeaea;
+    background: #eaeaea;
 }
 
 #po-make-clonable div{
-	width: 100%;
+    width: auto;
 }
 
 #po-make-clonable label{
     width: 20%;
     display: inline-block;
-	margin-left: 60px;
 }
 .po_float_controls{
-	position: absolute;
-	top: 10px;
-	left: 0;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
+    border-radius: 4px;
+    background: #428bff
 }
 .po_float_controls li{
-	display: inline-block;
-	min-width: 16px;
-	text-align: center;
+    display: inline-block;
+    min-width: 16px;
+    text-align: center;
 }
 .fa-ellipsis-v:hover{
-	color: blue;
-	cursor: -webkit-grabbing;
-	cursor: -webkit-grab;
-	cursor: grab;
+    color: blue;
+    cursor: -webkit-grabbing;
+    cursor: -webkit-grab;
+    cursor: grab;
 }
 .fa-trash-alt:hover{
-	color: darkred;
-	cursor: pointer;
+    color: darkred;
+    cursor: pointer;
 }
 .stage-item{
-	padding: 8px;
-	border: 1px solid gray;
-	cursor: -webkit-grabbing;
-	cursor: -webkit-grab;
-	cursor: grab;
+    padding: 8px;
+    border: 1px solid gray;
+    cursor: -webkit-grabbing;
+    cursor: -webkit-grab;
+    cursor: grab;
 }
 .stage-item .fa-ellipsis-v{
-	margin: 0 12px;
+    margin: 0 12px;
 }
 .po-message-placeholder{
-	display: inline-block;
-	float: right;
-	margin-top: 10px;
+    display: inline-block;
+    float: right;
+    margin-top: 10px;
 }
 .po-message-placeholder.success,
 .po-message-placeholder.error{
-	font-weight: bold;
+    font-weight: bold;
 }
 .po-message-placeholder.success{
-	color: limegreen;
+    color: limegreen;
 }
 .po-message-placeholder.error{
-	color: darkred;
+    color: darkred;
 }
 
 #adminmenu .gquote-not{
@@ -79,10 +83,54 @@
     min-width: 7px;
     height: 17px;
     border-radius: 11px;
-    background-color: #009688;
-    color: #fff;
+    *background-color: #009688;
+    color: #000;
     font-size: 9px;
     line-height: 17px;
     text-align: center;
     z-index: 26;
+    -webkit-animation: on-hold-label-bkg 1s infinite;
+    -moz-animation: on-hold-label-bkg 1s infinite;
+    -o-animation: on-hold-label-bkg 1s infinite;
+    animation: on-hold-label-bkg 1s infinite;
+}
+.status-tag{
+    display: inline-block;
+    padding: 5px;
+    min-width: 80px;
+    background: lightgray;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: bold;
+    color: black
+}
+.status-0{
+    box-shadow: 1px 1px 3px #c3c3c3;
+    -webkit-animation: on-hold-label-bkg 1s infinite;  /* Safari 4+ */
+    -moz-animation: on-hold-label-bkg 1s infinite;  /* Fx 5+ */
+    -o-animation: on-hold-label-bkg 1s infinite;  /* Opera 12+ */
+    animation: on-hold-label-bkg 1s infinite;  /* IE 10+, Fx 29+ */
+}
+.status-1{
+    background: dodgerblue;
+}
+.status-2{
+    background: greenyellow;
+}
+.status-3{
+    background: darkorange;
+}
+.status-4{
+    background: lightgray;
+}
+
+@-webkit-keyframes on-hold-label-bkg {
+    0%, 49% {
+        background: yellow;
+        transition: all ease-in 1s;
+    }
+    50%, 100% {
+        background: #ff9d00;
+        transition: all ease-in 1s;
+    }
 }
