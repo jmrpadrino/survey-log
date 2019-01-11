@@ -117,8 +117,8 @@ function wpse_save_meta_fields($post_id){
     update_post_meta($post_id, '_po_survey_stage_log', $_POST['po_item']);
     update_post_meta($post_id, '_po_survey_status', $_POST['_po_survey_status']);
 }
-add_action( 'save_post', 'wpse_save_meta_fields' );
-add_action( 'new_to_publish', 'wpse_save_meta_fields' );
+//add_action( 'save_post', 'wpse_save_meta_fields' );
+//add_action( 'new_to_publish', 'wpse_save_meta_fields' );
 
 
 

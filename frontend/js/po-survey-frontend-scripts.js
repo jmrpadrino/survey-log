@@ -9,15 +9,19 @@ jQuery('.stage-item-label').click( function() {
 	var nextIndex = parentContainer.data('nextslide');
 	var nextContainer = jQuery('*[data-slide="'+nextIndex+'"]');
 	parentContainer.hide();
-	nextContainer.toggle('fast', 'linear');/*
-		'slide',
-		'linear',
-		1000
-	);*/
+	nextContainer.toggle('fast', 'linear');
 	redoProgressBar(barWidth * nextIndex);
 });
 function redoProgressBar(barWidth){
 	jQuery('.bar').css({width: barWidth + '%'});
+}
+
+function surveyRestart(){
+    jQuery('.po-slide').hide();
+    jQuery('.po-slide[data-slide=1]').show();
+}
+function poSayThanks(){
+    jQuery('div[data-nextslide="last"]').html(po_strings.thankyoutext)
 }
 
 /* AJAX call sending info */
@@ -42,6 +46,8 @@ jQuery('#send-survey').click( function (e){
 		},
 		success    : function( response ){
 			console.log(po_strings.po_success, response);
+            //surveyRestart();
+            poSayThanks();
 		},
 		error      : function( response ){
 			console.log(po_strings.po_error);

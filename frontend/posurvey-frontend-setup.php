@@ -14,6 +14,7 @@ function po_frontend_scripts(){
 			array( 
 				'ajax_url' 			=> admin_url( 'admin-ajax.php' ),
 				'po_before_send' 	=> _x('Sending data', 'po_survey'), 
+				'thankyoutext' 		=> _x('Thank you for completing the Survey', 'po_survey'),
 				'po_success' 		=> _x('Survey sent', 'po_survey'), 
 				'po_error' 			=> _x('There was an error, please try again later.', 'po_survey'), 
 			) 
@@ -66,6 +67,7 @@ function po_add_quote(){
 	$html_content = ob_get_contents();
 	ob_end_clean();
 	echo $html_content;
+    $initial_status = '0';
 
 	/** ADD QUOTE **/
 	$pedido = array(
@@ -76,28 +78,8 @@ function po_add_quote(){
         'meta_input' => array(
             '_po_survey_meta' => $meta_info,
             '_po_survey_log' => $html_content,
-            '_po_survey_status' => 0
+            '_po_survey_status' => '0'
         )
-		/*
-		'meta_input' => array(
-			$prefix . 'quote_ID' => $pedidoTemporal['quote'],
-			$prefix . 'quote_status' => $pedidoTemporal['go-request'],
-			$prefix . 'quote_ship' => $pedidoTemporal['ship'],
-			$prefix . 'quote_departure' => $pedidoTemporal['departure'],
-			$prefix . 'quote_promo' => $pedidoTemporal['promo'],
-			$prefix . 'quote_duration' => $pedidoTemporal['duration'],
-			$prefix . 'quote_adults' => $pedidoTemporal['adults'],
-			$prefix . 'quote_children' => $pedidoTemporal['children'],
-			$prefix . 'quote_cabins' => $pedidoTemporal['cabins-selected'],
-			$prefix . 'quote_traveler' => $pedidoTemporal['traveler'],
-			$prefix . 'quote_extras' => $pedidoTemporal['services'],
-			$prefix . 'quote_billing_country' => $pedidoTemporal['billing-country'],
-			$prefix . 'quote_billing_address' => $pedidoTemporal['billing-address'],
-			$prefix . 'quote_billing_city' => $pedidoTemporal['billing-city'],
-			$prefix . 'quote_billing_state' => $pedidoTemporal['billing-state'],
-			$prefix . 'quote_billing_zipcode' => $pedidoTemporal['billing-zipcode'],
-		)
-		*/
 	);
 	wp_insert_post( $pedido );
 
@@ -129,21 +111,4 @@ add_action('wp_ajax_po_add_quote','po_add_quote');
 
 function op_set_html_mail_content_type(){
 	return 'text/html';
-}
-
-function goquitongSaveStatus( $post_id ){
-	if( !isset( $_POST['gquote_status_nonce'] ) || !wp_verify_nonce( $_POST['gquote_status_nonce'],'gquote_register_meta_boxes_nonce') ) 
-		return;
-	if ( !current_user_can( 'edit_post', $post_id ))
-		return;
-
-	update_post_meta($post_id, 'quote_status',  sanitize_text_field($_POST['quote_status']));
-
-}
-//add_action('save_post', 'goquitongSaveStatus');
-
-function mostrar($arr){
-	echo '<pre>';
-	var_dump($arr);
-	echo '</pre>';
 }

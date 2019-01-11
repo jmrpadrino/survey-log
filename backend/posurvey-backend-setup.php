@@ -144,8 +144,9 @@ function po_survey_admin_menu(){
         'meta_query' => array(
             'relation' => 'AND',
             array(
-                'key' => 'quote_status',
-                'value' => 0
+                'key' => '_po_survey_status',
+                'value' => 0,
+                'compare' => 'LIKE'
             )
         )
     );
@@ -185,29 +186,3 @@ function po_reorder_survey(){
 	wp_die();
 }
 add_action('wp_ajax_po_reorder_survey','po_reorder_survey');
-
-
-add_action( 'admin_menu', 'add_survey_menu_bubble' );
-function add_survey_menu_bubble() {
-    global $menu;
-    $args = array(
-        'post_type' => 'pos_apply',
-        'posts_per_page' => -1,
-        'meta_query' => array(
-            'relation' => 'AND',
-            array(
-                'key' => 'quote_status',
-                'value' => 0
-            )
-        )
-    );
-    $quotes = get_posts($args);
-    if ( $quotes ) {
-        foreach ( $menu as $key => $value ) {
-            if ( $menu[$key][2] == 'edit.php?post_type=pos_apply' ) {
-                $menu[$key][0] .= ' <span class="gquote-not">AB' . count($quotes) . '</span>';
-                return;
-            }
-        }
-    }
-}
